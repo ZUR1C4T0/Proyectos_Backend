@@ -1,0 +1,60 @@
+<%- include('./templates/htmlStart', {title:'Inicio'}) %>
+
+    <main class="container">
+        <div class="row">
+            <div class="col my-3 d-flex justify-content-between">
+                <h1><i class="fa-solid fa-list"></i> Lista de Clientes</h1>
+                <button class="btn btn-success" data-mdb-toggle="modal" data-mdb-target="#addClient">
+                    <i class="fa-solid fa-user-plus"></i>
+                </button>
+                <%- include('./templates/modal-add-client.ejs') %>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-11 col-md-6 mb-4">
+                <form class="d-flex input-group">
+                    <input type="search" class="form-control rounded" placeholder="Buscar" />
+                    <span class="input-group-text border-0" id="search-addon">
+                        <i class="fas fa-search"></i>
+                    </span>
+                </form>
+            </div>
+        </div>
+
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
+            <% if ( typeof arrayClientes !==undefined) { %>
+                <% arrayClientes.forEach(cliente=> { %>
+                    <div class="col">
+                        <!-- Card de cliente -->
+                        <div class="card bg-black bg-opacity-10 mb-3">
+                            <div class="card-header d-flex">
+                                <h5 class="flex-grow-1">
+                                    <i class="fa-solid fa-person"></i>
+                                    <%= cliente.name %>
+                                </h5>
+                            </div>
+
+                            <div class="card-body d-flex">
+                                <div class="flex-grow-1">
+                                    <h6 class="card-title">Deuda Total:</h6>
+                                    <span>$ <%= cliente.debt %></span>
+                                </div>
+
+                                <span class="btn-group-vertical btn-group-s">
+                                    <button class="btn btn-success px-2 mb-1">
+                                        <i class="fa-solid fa-file-circle-plus"></i> Registrar
+                                    </button>
+                                    <button class="btn btn-secondary px-2">
+                                        <i class="fa-solid fa-circle-info"></i> Detalles
+                                    </button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <% }) %>
+                        <% } %>
+        </div>
+    </main>
+
+    <%- include('./templates/htmlEnd') %>
