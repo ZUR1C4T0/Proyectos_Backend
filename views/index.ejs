@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col my-3 d-flex justify-content-between">
                 <h1><i class="fa-solid fa-list"></i> Lista de Clientes</h1>
-                <button class="btn btn-success" data-mdb-toggle="modal" data-mdb-target="#addClient">
+                <button class="btn btn-success btn-rounded" data-mdb-toggle="modal" data-mdb-target="#addClient">
                     <i class="fa-solid fa-user-plus"></i>
                 </button>
                 <%- include('./templates/modal-add-client.ejs') %>
@@ -26,29 +26,28 @@
             <% if ( typeof arrayClientes !==undefined) { %>
                 <% arrayClientes.forEach(cliente=> { %>
                     <div class="col">
-                        <!-- Card de cliente -->
-                        <div class="card bg-black bg-opacity-10 mb-3">
+                        <!-- Tarjeta de clientes -->
+                        <div class="card border bg-black bg-opacity-10 mb-3 shadow-4-strong">
                             <div class="card-header d-flex">
                                 <h5 class="flex-grow-1">
                                     <i class="fa-solid fa-person"></i>
                                     <%= cliente.name %>
                                 </h5>
+                                <a class="btn btn-outline- btn-rounded px-2"
+                                    href="/clientes/detalles/<%= cliente._id %>">
+                                    <i class="fa-solid fa-circle-info"></i> Detalles
+                                </a>
                             </div>
 
-                            <div class="card-body d-flex">
+                            <div class="card-body d-flex align-items-center">
                                 <div class="flex-grow-1">
-                                    <h6 class="card-title">Deuda Total:</h6>
-                                    <span>$ <%= cliente.debt %></span>
+                                    <h6 class="card-title">Deuda Actual:</h6>
+                                    <span class="text-danger">$ <%= Intl.NumberFormat().format(cliente.debt) %></span>
                                 </div>
 
-                                <span class="btn-group-vertical btn-group-s">
-                                    <button class="btn btn-success px-2 mb-1">
-                                        <i class="fa-solid fa-file-circle-plus"></i> Registrar
-                                    </button>
-                                    <button class="btn btn-secondary px-2">
-                                        <i class="fa-solid fa-circle-info"></i> Detalles
-                                    </button>
-                                </span>
+                                <button class="btn btn-success btn-rounded px-2 mb-1">
+                                    <i class="fa-solid fa-file-circle-plus"></i> Registrar
+                                </button>
                             </div>
                         </div>
                     </div>

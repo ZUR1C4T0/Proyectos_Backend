@@ -2,8 +2,6 @@ const express = require("express");
 const Cliente = require("../models/Cliente");
 const router = express.Router();
 
-router.get("/:id", async (req, res) => {});
-
 router.post("/agregar", async (req, res) => {
   try {
     req.body.debt = parseInt(req.body.debt);
@@ -12,6 +10,27 @@ router.post("/agregar", async (req, res) => {
     res.redirect("/");
   } catch (error) {
     console.log(error);
+  }
+});
+
+router.post("/eliminar/:id", async (req, res) => {
+  try {
+    const _id = req.params.id;
+    await Cliente.findByIdAndDelete({ _id });
+    res.redirect("/");
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+router.get("/detalles/:id", async (req, res) => {
+  try {
+    const _id = req.params.id;
+    const cLienteDB = await Cliente.findOne({ _id });
+    res.render("details", { cliente: cLienteDB });
+  } catch (error) {
+    console.log(error);
+    res.render("404");
   }
 });
 

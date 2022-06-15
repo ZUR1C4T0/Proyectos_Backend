@@ -1,0 +1,72 @@
+<%- include('./templates/htmlStart', {title:cliente.name}) %>
+
+    <div class="container">
+        <div class="row">
+            <div class="col mt-3 mx-3">
+                <h2 class="d-flex justify-content-between">
+                    <span>
+                        <i class="fa-solid fa-user"></i>
+                        <%= cliente.name %>
+                    </span>
+                    <p class="text-end text-danger">
+                        Saldo: $<%= Intl.NumberFormat().format(cliente.debt) %>
+                    </p>
+                </h2>
+            </div>
+        </div>
+
+        <div class="row justify-content-evenly">
+            <div class="col-auto mb-1">
+                <form action="/clientes/eliminar/<%= cliente._id %>" method="post">
+                    <button type="submit" class="btn btn-outline-danger btn-rounded" id="btnDelete">
+                        <i class="fa-solid fa-trash-can"></i> Eliminar cliente
+                    </button>
+                </form>
+            </div>
+            <div class="col-auto mb-1">
+                <button class="btn btn-warning btn-rounded">
+                    <i class="fa-solid fa-file-circle-plus"></i> Agregar registro
+                </button>
+            </div>
+        </div>
+
+        <div class="row justify-content-center">
+            <!-- =========================== -->
+            <div class="col-11 my-2">
+                <div class="card border bg-success bg-opacity-50 shadow-4-strong">
+                    <div class="card-body text-dark">
+                        <h6 class="d-flex justify-content-between card-title">
+                            <span>
+                                <i class="fa-solid fa-money-bill"></i> Abono por 20,000
+                            </span>
+                            <p class="card-subtitle mb-2 text-muted">10-10-2010</p>
+                        </h6>
+                        <p class="card-text">Lorem ipsum, dolor sit amet consectetur adipisicing.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-11 my-2">
+                <div class="card border bg-danger bg-opacity-50 shadow-4-strong">
+                    <div class="card-body text-dark">
+                        <h6 class="d-flex justify-content-between card-title">
+                            <span>
+                                <i class="fa-solid fa-cart-shopping"></i> Cargo por 20,000
+                            </span>
+                            <p class="card-subtitle mb-2 text-muted">10-10-2010</p>
+                        </h6>
+                        <p class="card-text">Lorem ipsum, dolor sit amet consectetur adipisicing.</p>
+                    </div>
+                </div>
+            </div>
+            <!-- =========================== -->
+        </div>
+    </div>
+    <script>
+        const form = document.forms[0];
+        form.addEventListener('submit', e => {
+            confirm('Estás a punto de eliminar todo sobre <%= cliente.name %>, esta acción no tiene vuelta atrás. ¿deseas continuar?')
+                ? true : e.preventDefault()
+        })
+    </script>
+
+    <%- include('./templates/htmlEnd') %>
