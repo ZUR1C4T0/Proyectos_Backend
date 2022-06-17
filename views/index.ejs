@@ -26,10 +26,10 @@
             <% if ( typeof arrayClientes !==undefined) { %>
                 <% arrayClientes.forEach(cliente=> { %>
                     <div class="col">
-                        <!-- Tarjeta de clientes -->
+                        <!-- Tarjeta de cliente -->
                         <div class="card border bg-black bg-opacity-10 mb-3 shadow-4-strong">
                             <div class="card-header d-flex">
-                                <h5 class="flex-grow-1">
+                                <h5 class="flex-grow-1 text-capitalize">
                                     <i class="fa-solid fa-person"></i>
                                     <%= cliente.name %>
                                 </h5>
@@ -45,7 +45,8 @@
                                     <span class="text-danger">$ <%= Intl.NumberFormat().format(cliente.debt) %></span>
                                 </div>
 
-                                <button class="btn btn-success btn-rounded px-2 mb-1">
+                                <button class="btn btn-success btn-rounded px-2 mb-1" data-mdb-toggle="modal"
+                                    data-mdb-target="#addRecord" data-mdb-id="<%= cliente.id %> ">
                                     <i class="fa-solid fa-file-circle-plus"></i> Registrar
                                 </button>
                             </div>
@@ -54,6 +55,7 @@
                     <% }) %>
                         <% } %>
         </div>
+        <%- include('./templates/modal-add-record.ejs') %>
     </main>
 
     <%- include('./templates/htmlEnd') %>

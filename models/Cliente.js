@@ -1,9 +1,18 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+// Esquema
 const ClienteSchema = new Schema({
   name: String,
-  debt: Number
+  debt: Number,
+  records: [
+    new Schema({
+      type: String,
+      value: Number,
+      description: String,
+      date: String
+    })
+  ]
 });
 
 // Modelo

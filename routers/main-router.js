@@ -1,7 +1,5 @@
 const express = require("express");
 const router = express.Router();
-const bodyParser = require("body-parser");
-
 const Cliente = require("../models/Cliente.js");
 
 router.get("/", async (req, res) => {
