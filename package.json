@@ -1,0 +1,23 @@
+{
+  "name": "api-cartera",
+  "version": "1.0.0",
+  "description": "Servidor de respuestas al programa Cartera de Revista",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "author": "ZUR1C4T0",
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/joi": "^17.1.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "mongoose": "^6.3.6"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.16"
+  }
+}
