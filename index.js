@@ -1,11 +1,20 @@
 import express from "express";
 import "dotenv/config";
+import cors from "cors";
 
 const app = express();
 
 // capturar body
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+
+// configuracion de cors
+app.use(
+  cors({
+    origin: "*",
+    optionsSuccessStatus: 200
+  })
+);
 
 // Conexión a Base de datos
 import mongoose from "mongoose";
