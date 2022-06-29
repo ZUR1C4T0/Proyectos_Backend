@@ -9,7 +9,7 @@ router.post("/client/register", async (req, res) => {
   //validación de datos a enviar
   const shemaRegister = joi.object({
     name: joi.string().required().min(4).max(255),
-    debt: joi.string().required()
+    debt: joi.number().required()
   });
   const { error } = shemaRegister.validate(req.body);
   if (error) return res.status(400).json({ error: error.details[0].message });
@@ -67,7 +67,7 @@ router.get("/client/:id", async (req, res) => {
   const _id = req.params.id;
   try {
     // se busca el cliente segun su id
-    const clientData = await Client.findById({ _id });
+    const clientData = await Client.findById({ _id }, { records: 0 });
     if (clientData) res.json(clientData);
     else res.status(400).json(clientData);
   } catch (error) {
@@ -77,7 +77,8 @@ router.get("/client/:id", async (req, res) => {
 });
 
 /***Crear nuevo registro***/
-router.post("/record/register", async (req, res) => {
+router.put("/records/:id/register", async (req, res) => {
+  const _id = req.params.id;
   //validación de datos a enviar
   const shemaRegister = joi.object({
     type: joi.string().required(),
@@ -87,6 +88,40 @@ router.post("/record/register", async (req, res) => {
   });
   const { error } = shemaRegister.validate(req.body);
   if (error) return res.status(400).json({ error: error.details[0].message });
+
+  try {
+    // se busca el cliente y se actualiza la deuda
+    const clientToEdit = await Client.findById({ _id });
+    let newDebt;
+    if (req.body.type === "payment") newDebt = clientToEdit.debt - req.body.value;
+    else if (req.body.type === "purchase") newDebt = clientToEdit.debt + req.body.value;
+    else res.status(400);
+
+    // se edita el cliente y se agrega el registro
+    const clientEdited = await Client.updateOne(
+      { _id },
+      { debt: newDebt, $push: { records: [req.body] } }
+    );
+    res.json({ data: clientEdited });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ error });
+  }
+});
+
+/***Obtener registros de un cliente***/
+router.get("/records/:id", async (req, res) => {
+  const _id = req.params.id;
+  try {
+    // se buscan los registros del cliente segun su id
+    const clientRecords = await Client.findById({ _id }, { records: 1 });
+    if (clientRecords)
+      res.json(clientRecords.records.sort((a, b) => new Date(b.date) - new Date(a.date)));
+    else res.status(400).json({ clientRecords });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json(error);
+  }
 });
 
 export default router;
