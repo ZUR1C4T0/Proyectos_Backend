@@ -34,7 +34,7 @@ router.get("/", (req, res) => {
       console.log(err);
       res.status(500);
     } finally {
-      conection.release();
+      conection.end();
     }
   });
 });
