@@ -4,6 +4,8 @@ const flash = require("express-flash");
 const path = require("path");
 const app = express();
 
+require('dotenv').config()
+
 // procesamiento del body
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -28,4 +30,4 @@ app.use(express.static(path.join(__dirname, "/public")));
 // rutas
 app.use(require("./src/routes/index"));
 
-app.listen(8080, () => console.log("Servidor Iniciado: ", "http://localhost:8080"));
+app.listen(process.env.PORT || 8080);
