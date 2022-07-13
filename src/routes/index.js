@@ -6,6 +6,7 @@ const mysql = require("mysql");
 const pool = mysql.createPool({
   connectionLimit: 10,
   host: "containers-us-west-73.railway.app",
+  port: 5837,
   user: "root",
   password: "fxDQNtdysBP6lHPrWcyF",
   database: "railway"
