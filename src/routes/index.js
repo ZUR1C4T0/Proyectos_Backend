@@ -5,10 +5,10 @@ const router = Router();
 const mysql = require("mysql");
 const pool = mysql.createPool({
   connectionLimit: 10,
-  host: "localhost",
+  host: "containers-us-west-73.railway.app",
   user: "root",
-  password: "",
-  database: "blog_viajes"
+  password: "fxDQNtdysBP6lHPrWcyF",
+  database: "railway"
 });
 
 // ruta de inicio
@@ -53,15 +53,15 @@ router.post("/procesar_registro", (req, res) => {
 
       const nombre = String(req.body.nombre).trim().toLowerCase();
       const email = String(req.body.email).trim().toLowerCase();
-      const contraseña = String(req.body.contraseña);
+      const contrasena = String(req.body.contrasena);
 
       const consultarNombre = `SELECT * FROM autores WHERE nombre = ${conection.escape(nombre)}`;
       const consultarEmail = `SELECT * FROM autores WHERE email = ${conection.escape(email)}`;
-      const registro = `INSERT INTO autores (nombre, email, contraseña) 
+      const registro = `INSERT INTO autores (nombre, email, contrasena) 
       VALUES (
         ${conection.escape(nombre)}, 
         ${conection.escape(email)}, 
-        ${conection.escape(contraseña)}
+        ${conection.escape(contrasena)}
         )`;
 
       conection.query(consultarNombre, (err, result) => {
@@ -133,11 +133,11 @@ router.post("/procesar_ingreso", (req, res) => {
       if (err) throw err;
 
       const email = String(req.body.email).trim().toLowerCase();
-      const contraseña = String(req.body.contraseña);
+      const contrasena = String(req.body.contrasena);
 
       const consultarIngreso = `SELECT * FROM autores 
       WHERE email = ${conection.escape(email)} 
-      AND contraseña = ${conection.escape(contraseña)}`;
+      AND contrasena = ${conection.escape(contrasena)}`;
 
       conection.query(consultarIngreso, (err, result) => {
         if (err) throw err;
