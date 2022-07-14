@@ -4,7 +4,7 @@ const router = Router();
 // base de datos
 const mysql = require("mysql2");
 const pool = mysql.createPool({
-  connectionLimit: 10,
+  connectionLimit: 20,
   host: "containers-us-west-73.railway.app",
   port: 5837,
   user: "root",
