@@ -9,7 +9,7 @@ const pool = mysql.createPool({
   port: 5837,
   user: "root",
   password: "fxDQNtdysBP6lHPrWcyF",
-  database: "railway"
+  database: "railway",
 });
 
 // ruta de inicio
@@ -29,7 +29,10 @@ router.get("/", (req, res) => {
 
       conection.query(query, (err, result) => {
         if (err) throw err;
-        res.render("index", { publicaciones: result, session: req.session.user });
+        res.render("index", {
+          publicaciones: result,
+          session: req.session.user,
+        });
       });
     } catch (err) {
       console.log(err);
@@ -56,8 +59,12 @@ router.post("/procesar_registro", (req, res) => {
       const email = String(req.body.email).trim().toLowerCase();
       const contrasena = String(req.body.contrasena);
 
-      const consultarNombre = `SELECT * FROM autores WHERE nombre = ${conection.escape(nombre)}`;
-      const consultarEmail = `SELECT * FROM autores WHERE email = ${conection.escape(email)}`;
+      const consultarNombre = `SELECT * FROM autores WHERE nombre = ${conection.escape(
+        nombre
+      )}`;
+      const consultarEmail = `SELECT * FROM autores WHERE email = ${conection.escape(
+        email
+      )}`;
       const registro = `INSERT INTO autores (nombre, email, contrasena) 
       VALUES (
         ${conection.escape(nombre)}, 
@@ -173,7 +180,7 @@ router.get("/cerrar_sesion", (req, res) => {
 });
 
 // ruta de administración
-router.get("/admin", (req, res) => {
+router.get("/admin/publicaciones", (req, res) => {
   if (!req.session.user) res.redirect("/ingreso");
 
   pool.getConnection((err, conection) => {
@@ -188,7 +195,10 @@ router.get("/admin", (req, res) => {
       conection.query(getPublicaciones, (err, result) => {
         if (err) throw err;
 
-        res.render("admin", { session: req.session.user, publicaciones: result });
+        res.render("admin", {
+          session: req.session.user,
+          publicaciones: result,
+        });
       });
     } catch (err) {
       console.log(err);
@@ -197,6 +207,13 @@ router.get("/admin", (req, res) => {
       conection.release();
     }
   });
+});
+
+// ruta para agregar publicacion
+router.get("/admin/publicaciones/agregar", (req, res) => {
+  if (!req.session.user) res.redirect("/ingreso");
+
+  res.render("admin.agregar", { session: req.session.user, alerta: req.flash("alerta") });
 });
 
 module.exports = router;

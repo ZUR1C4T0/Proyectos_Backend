@@ -12,7 +12,7 @@
 </head>
 
 <body class="d-flex flex-column" style="min-height: 100vh;">
-    <%- include("./partials/private_header.ejs", { active: "admin" }) %>
+    <%- include("./partials/private_header.ejs", { active: "admin", session }) %>
 
         <div class="container-md flex-grow-1 d-flex flex-column">
             <div class="row">
@@ -52,7 +52,7 @@
                 </div>
             </div>
             <div class="row justify-content-end mt-auto m-3 mx-md-0 sticky-bottom" style="bottom: 20px;">
-                <a href="/admin/agregar_publicacion" class="btn btn-primary btn-lg rounded-circle mt-3"
+                <a href="./agregar" class="btn btn-primary btn-lg rounded-circle mt-3"
                     style="padding: 8px 12px; width: 48px; height: 48px; right: 20px; ">
                     <i class="fa fa-file-circle-plus"></i>
                 </a>
